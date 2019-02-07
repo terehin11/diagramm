@@ -1,0 +1,7 @@
+C:\Users\svt\Desktop\Diagram\grdRead\grdRead\bin\Debug\grdRead.exe.config
+C:\Users\svt\Desktop\Diagram\grdRead\grdRead\bin\Debug\grdRead.exe
+C:\Users\svt\Desktop\Diagram\grdRead\grdRead\bin\Debug\grdRead.pdb
+C:\Users\svt\Desktop\Diagram\grdRead\grdRead\obj\Debug\grdRead.csprojAssemblyReference.cache
+C:\Users\svt\Desktop\Diagram\grdRead\grdRead\obj\Debug\grdRead.csproj.CoreCompileInputs.cache
+C:\Users\svt\Desktop\Diagram\grdRead\grdRead\obj\Debug\grdRead.exe
+C:\Users\svt\Desktop\Diagram\grdRead\grdRead\obj\Debug\grdRead.pdb
