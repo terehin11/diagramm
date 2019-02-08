@@ -92,13 +92,54 @@ namespace grdRead
                 iy = Int32.Parse(words[1]);
                 center.Add(ix, iy);
             }
+////////////////////////////////////////////////////////////////////////////////////////////////////
+            DirectionPattern lhpDP = new DirectionPattern();
+            List<Beam> lhpBeams = new List<Beam>();
+            DirectionPattern rhpDP = new DirectionPattern();
+            List<Beam> rhpBeams = new List<Beam>();
 
-            DirectionPattern lhpDP;
-            List<Beam> lhpBeams;
-            DirectionPattern rhpDP;
-            List<Beam> rhpBeams;
+            for(int i =0; i < beemNumber;i++)
+            {
+                double xs, ys, xe, ye;
+                lineBuf = readFile.ReadLine();
+                parse(lineBuf);
+                xs = Double.Parse(words[0]);
+                ys = Double.Parse(words[1]);
+                xe = Double.Parse(words[2]);
+                ye = Double.Parse(words[3]);
+
+                lineBuf = readFile.ReadLine();
+                uint nx, ny, kLimit;
+                parse(lineBuf);
+                nx = UInt32.Parse(words[0]);
+                ny = UInt32.Parse(words[1]);
+                kLimit = UInt32.Parse(words[2]);
+
+                double dx = (xe - xs) / (nx - 1);
+                double dy = (ye - ys) / (ny - 1);
 
 
+                Direct mainDirect = new Direct(dx * center.Keys.ElementAtOrDefault(i),  dx*center.Values.ElementAtOrDefault(i) ,AngleDim.DEG);
+                Direct leftBottom = new Direct(xs, ys, AngleDim.DEG);
+                Direct rightTop = new Direct(xe, ye, AngleDim.DEG);
+
+                Beam rhpBeam = new Beam();
+                rhpBeam.setCenterAxis(ref mainDirect);
+                rhpBeam.setElPointNumber(ny);
+                rhpBeam.setAzPointNumber(nx);
+                rhpBeam.setLeftBottom(ref leftBottom);
+                rhpBeam.setRightTop(ref rightTop);
+
+                Beam lhpBeam = new Beam();
+                lhpBeam.setCenterAxis(ref mainDirect);
+                lhpBeam.setElPointNumber(ny);
+                lhpBeam.setAzPointNumber(nx);
+                lhpBeam.setLeftBottom(ref leftBottom);
+                lhpBeam.setRightTop(ref rightTop);
+
+                ;
+
+            }
 
 
             Dictionary<Polarisation, DirectionPattern> res;
