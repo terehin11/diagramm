@@ -30,7 +30,10 @@ namespace grdRead
 
         /** Поляризация для которой рассчитана ДН. */
         Polarisation polarisation;
-
+        public DirectionPattern()
+        {
+            
+        }
 
         /**
         * Задать лучи ДН.
