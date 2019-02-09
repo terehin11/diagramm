@@ -39,7 +39,7 @@ namespace grdRead
         * Задать лучи ДН.
         * @param beams лучи ДН.
         */
-        public void setBeams(ref List<Beam> beams)
+        unsafe public void setBeams(List<Beam> beams)
             {
             this.beams = beams;
             }

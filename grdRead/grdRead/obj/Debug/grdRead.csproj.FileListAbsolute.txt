@@ -5,3 +5,10 @@ C:\Users\svt\Desktop\Diagram\grdRead\grdRead\obj\Debug\grdRead.csprojAssemblyRef
 C:\Users\svt\Desktop\Diagram\grdRead\grdRead\obj\Debug\grdRead.csproj.CoreCompileInputs.cache
 C:\Users\svt\Desktop\Diagram\grdRead\grdRead\obj\Debug\grdRead.exe
 C:\Users\svt\Desktop\Diagram\grdRead\grdRead\obj\Debug\grdRead.pdb
+C:\repos\grdRead\grdRead\bin\Debug\grdRead.exe.config
+C:\repos\grdRead\grdRead\bin\Debug\grdRead.exe
+C:\repos\grdRead\grdRead\bin\Debug\grdRead.pdb
+C:\repos\grdRead\grdRead\obj\Debug\grdRead.csprojAssemblyReference.cache
+C:\repos\grdRead\grdRead\obj\Debug\grdRead.csproj.CoreCompileInputs.cache
+C:\repos\grdRead\grdRead\obj\Debug\grdRead.exe
+C:\repos\grdRead\grdRead\obj\Debug\grdRead.pdb

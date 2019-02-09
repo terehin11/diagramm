@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Numerics;
 
 namespace grdRead
 {
@@ -21,7 +22,8 @@ namespace grdRead
         }
 
 
-        public Dictionary<Polarisation, DirectionPattern> read(ref string fileaname, uint satelliteId, uint antennaId)
+
+        public static Dictionary<Polarisation, DirectionPattern> Read(string fileaname, uint satelliteId, uint antennaId)
         {
             //  StreamReader file = new StreamReader(fileaname);
             FileStream file = File.OpenRead(fileaname);
@@ -98,7 +100,10 @@ namespace grdRead
             DirectionPattern rhpDP = new DirectionPattern();
             List<Beam> rhpBeams = new List<Beam>();
 
-            for(int i =0; i < beemNumber;i++)
+            Beam lhpBeam = new Beam();
+            Beam rhpBeam = new Beam();
+
+            for (int i =0; i < beemNumber;i++)
             {
                 double xs, ys, xe, ye;
                 lineBuf = readFile.ReadLine();
@@ -123,26 +128,75 @@ namespace grdRead
                 Direct leftBottom = new Direct(xs, ys, AngleDim.DEG);
                 Direct rightTop = new Direct(xe, ye, AngleDim.DEG);
 
-                Beam rhpBeam = new Beam();
+                
                 rhpBeam.setCenterAxis(ref mainDirect);
                 rhpBeam.setElPointNumber(ny);
                 rhpBeam.setAzPointNumber(nx);
                 rhpBeam.setLeftBottom(ref leftBottom);
                 rhpBeam.setRightTop(ref rightTop);
 
-                Beam lhpBeam = new Beam();
+               
                 lhpBeam.setCenterAxis(ref mainDirect);
                 lhpBeam.setElPointNumber(ny);
                 lhpBeam.setAzPointNumber(nx);
                 lhpBeam.setLeftBottom(ref leftBottom);
                 lhpBeam.setRightTop(ref rightTop);
 
-                ;
+                var rhpSamples = rhpBeam.getSamples();
+                var lhpSamples = lhpBeam.getSamples();
 
+                for(var y = 0; y < ny;y++)
+                {
+                    for(var x = 0; x < nx;x++)
+                    {
+
+                        double rhpRe, rhpIm, lhpRe, lhpIm;
+                        lineBuf = readFile.ReadLine();
+                        parse(lineBuf);
+                        rhpRe = Double.Parse(words[0]);
+                        rhpIm = Double.Parse(words[1]);
+                        lhpRe = Double.Parse(words[2]);
+                        lhpIm = Double.Parse(words[3]);
+                        Complex rhpBuf = new Complex(rhpRe, rhpIm);
+                        Complex lhpBuf = new Complex(lhpRe, lhpIm);
+                        rhpSamples.Add(rhpBuf);
+                        lhpSamples.Add(lhpBuf);
+                    }
+                    rhpBeams.Add(rhpBeam);
+                    lhpBeams.Add(lhpBeam);
+                }
+                
             }
+            file.Close();
 
+            
+            lhpDP.setBeams(lhpBeams);
+            lhpDP.setFrequency(frequency);
+            lhpDP.setSatelliteId(satelliteId);
+            lhpDP.setAntennaId(antennaId);
+            lhpDP.setPolarisation(Polarisation.LHP);
 
-            Dictionary<Polarisation, DirectionPattern> res;
+            rhpDP.setBeams(rhpBeams);
+            rhpDP.setFrequency(frequency);
+            rhpDP.setSatelliteId(satelliteId);
+            rhpDP.setAntennaId(antennaId); 
+            rhpDP.setPolarisation(Polarisation.RHP);
+
+            
+
+            Dictionary<Polarisation, DirectionPattern> res = new Dictionary<Polarisation, DirectionPattern>();
+            res[Polarisation.LHP] = lhpDP;
+            res[Polarisation.RHP] = rhpDP;
+
+            Console.Write("frequency: " + frequency + "\n");
+            Console.Write("coordinatesType: " +  coordinatesType + "\n");
+            Console.Write("beemNumber: " + beemNumber + "\n");
+            Console.Write("iComp: " + iComp + "\n");
+            Console.Write("nComp: " +  nComp + "\n");
+            Console.Write("gridType: " +gridType + "\n");
+            Console.Write("center: " + center.Keys.ElementAtOrDefault(0) + " " + center.Values.ElementAtOrDefault(0) + "\n");
+            
+
             return res;
         }
 
@@ -150,7 +204,9 @@ namespace grdRead
 
         static void Main(string[] args)
         {
-
+            string filename = @"C:\repos\grdRead\beam1.grd";
+            Read(filename, 0, 0);
+           
         }
     }
 }

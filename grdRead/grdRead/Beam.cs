@@ -7,6 +7,8 @@ using System.Numerics;
 
 namespace grdRead
 {
+
+    
     class Beam
     {
         /** Направление, относительно которого рассчитана ДН луча. */
@@ -21,8 +23,11 @@ namespace grdRead
         Direct rightTop;
 
         /** Отсчеты ДН - комплексные коэффициенты усиления. */
-        List<Complex> samples;
+         List<Complex> samples = new List<Complex>();
 
+        //Dictionary<double, double> samples = new Dictionary<double, double>();
+        
+      
         /**
       * Задать направление, относительно которого рассчитана ДН луча.
       * @param centerAxis направление, относительно которого рассчитана ДН луча.
@@ -30,6 +35,7 @@ namespace grdRead
         public void setCenterAxis(ref Direct centerAxis)
         {
             this.centerAxis = centerAxis;
+            
         }
 
         /**
@@ -54,10 +60,10 @@ namespace grdRead
     * Задать направление на левый нижний угол области определения ДН.
     * @param leftTop направление на левый нижний угол области определения ДН.
     */
-       public void setLeftBottom(ref Direct leftTop)
-            {
+        unsafe public void setLeftBottom(ref Direct leftTop)
+        {
             this.leftBottom = leftTop;
-            }
+        }
 
         /**
          * Задать направление на верхний правый угол области определения ДН.
@@ -73,11 +79,13 @@ namespace grdRead
  * Получить отсчеты ДН - комплексные коэффициенты усиления (для изменения).
  * @return отсчеты ДН - комплексные коэффициенты усиления.
  */
-        public Complex getSamples()
+
+
+        unsafe public List<Complex> getSamples()
         {
-
+            return samples;
         }
-
+    
 
 
         /**
